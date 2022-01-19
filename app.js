@@ -8,6 +8,7 @@ const userRouter = require('./routes/userRoutes.js');
 const { router, db } = require('./routes/dbRoutes.js');
 const viewRouter = require('./routes/viewRoutes.js');
 app.set('view engine','pug');
+
 app.set('views',path.join(__dirname,'views'))
 app.use(express.static(path.join(__dirname,'public')));
 
