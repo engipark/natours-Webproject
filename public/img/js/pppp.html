@@ -1,0 +1,31 @@
+<html>
+    <head></head>
+
+    <body>
+        <button onclick="onButtonClicked()">붐</button>
+        <h2 id="boom">0</h2>
+    </body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.25.0/axios.min.js"></script>
+    <script>
+        function onButtonClicked()
+        {
+          axios({
+        method:'POST',
+        url:'http://127.0.0.1:3000/api/v1/users/login',
+        data:{
+            email:"sdfsdf@dff",
+            password:"hjgood123456789"
+
+        } })
+            .then(response=>{
+                document.getElementById('boom').innerText=response.data.num;
+                console.log(response);
+            })
+            .catch(error=>{
+                document.getElementById('boom').innerText='error';
+                console.log(error);
+            })
+        }
+    </script>
+</html>

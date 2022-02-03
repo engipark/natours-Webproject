@@ -1,5 +1,5 @@
 /* eslint-disable */
-const locations = document.getElementById('map').dataset.locations.split(',');
+const locations = document.getElementById('.map').dataset.locations.split(',');
 
 location1 = locations.slice(0,locations.length/2)
 location2 = locations.slice(locations.length/2,location.length)

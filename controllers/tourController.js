@@ -1,7 +1,7 @@
 const fs = require('fs');
+const AppError = require('../utils/appError');
 // const Tour = require('./../models/tourModel.js');
-const { dbRouter, db } = require('./../routes/dbRoutes');
-
+const  db  = require('./../routes/dbRoutes');
 
 
 exports.aliasTopTours = (req,res,next)=>{
@@ -21,7 +21,7 @@ exports.getAllTours = (req, res) => {
     delete queryObj[el];
   });
 
-  console.log(req.query, queryObj);
+  // console.log(req.query, queryObj);
 
 
 
@@ -43,7 +43,7 @@ exports.getAllTours = (req, res) => {
   }
   // 1) Filtering
   let queryString = JSON.stringify(queryObj);
-  console.log(queryString);
+  // console.log(queryString);
   let filteredquery = queryfiltering(queryString);
  // 2) Sorting
 
@@ -77,7 +77,7 @@ exports.getAllTours = (req, res) => {
   if(req.query.page){
 
     db.query('select count(*) from tours',(err,numTours)=>{
-        console.log(numTours[0]['count(*)']);
+        // console.log(numTours[0]['count(*)']);
         if(err) err;
     try{
         if(skip>= numTours[0]['count(*)']) throw new Error('This page does not exist');
@@ -91,8 +91,8 @@ exports.getAllTours = (req, res) => {
 
 
 
-console.log(fields);
-  console.log(filteredquery);
+// console.log(fields);
+//   console.log(filteredquery);
   let sql = `SELECT ${fields} FROM tours ${filteredquery}${Sorting}${pagination}`;
   console.log(sql);
   db.query(sql, (err, results) => {
@@ -113,15 +113,13 @@ console.log(fields);
   });
 };
 
-exports.getTour = (req, res) => {
-  db.query(`SELECT * from tours where id=${req.params.id}`, (err, result) => {
+exports.getTour = (req, res,next) => {
+  db.query(`SELECT * from tours where id='${req.params.id}'`, (err, result) => {
     if (err) {
-      return res.status(404).json({
-        status: 'fail',
-        message: err,
-      });
+      return next(new AppError(err.message,404));
     }
 
+ 
     res.status(201).json({
       status: 'success',
       result: result.length,
@@ -131,6 +129,7 @@ exports.getTour = (req, res) => {
     });
   });
 };
+
 
 exports.createTour = (req, res) => {
 
@@ -180,17 +179,14 @@ exports.createTour = (req, res) => {
   );
 };
 
-exports.updateTour = (req, res) => {
+exports.updateTour = (req, res,next) => {
   for (let key in req.body) {
     if (key) {
       db.query(
-        `UPDATE tours set ${key} = '${req.body[key]}' WHERE id=${req.params.id}`,
+        `UPDATE tours set ${key} = '${req.body[key]}' WHERE id='${req.params.id}'`,
         (err, result) => {
           if (err) {
-            return res.status(404).json({
-              status: 'Invalid data sent!',
-              message: err,
-            });
+            return next(new AppError(err.message,404));
           }
           res.status(203).json({
             status: 'success',
@@ -204,13 +200,12 @@ exports.updateTour = (req, res) => {
   }
 };
 exports.deleteTour = (req, res) => {
-  db.query(`DELETE FROM tours WHERE id=${req.params.id}`, (err, result) => {
+  db.query(`DELETE FROM tours WHERE id='${req.params.id}'`, (err, result) => {
     if (err) {
-      return res.status(404).json({
-        status: 'Invalid data sent!',
-        message: err,
-      });
+      return next(new AppError(err.message,404));
     }
+
+
     res.status(204).json({
       status: 'success',
       data: result,

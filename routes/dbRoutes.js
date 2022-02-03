@@ -12,6 +12,7 @@ const db = mysql.createConnection({
   user: 'show',
   password: process.env.DATABASE_PASSWORD,
   database: 'PracticeDb',
+  
 });
 
 db.connect((err) => {
@@ -19,6 +20,10 @@ db.connect((err) => {
 
   console.log('Sequel on showdown Connected...');
 });
+
+
+
+
 
 module.exports = db;
  

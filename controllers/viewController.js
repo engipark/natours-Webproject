@@ -1,3 +1,4 @@
+const AppError = require('../utils/appError');
 const db = require('./../routes/dbRoutes')
 
 
@@ -31,9 +32,20 @@ exports.getTour = async (req,res)=>{
       resolve(data);
     })
   })
+  if(!tour[0]){
 
-  console.log(tour);
-  
+    res.status(404).render('error',{
+
+      title:'Something went wrong!',
+      msg: "this tour doesn't exist!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+
+
+
+  })
+
+  return 0
+  }
+ 
   const users = await new Promise((resolve,reject)=>{
     db.query('select * from users',(err,data)=>{
       if(err) reject(err);
@@ -75,3 +87,39 @@ exports.getTour = async (req,res)=>{
 
 
   }
+
+
+
+exports.getAccount = (req,res)=>{
+
+
+  
+res.status(200).render('account',{
+  title:"your account!",
+
+})
+}
+
+exports.updateUser = async (req,res,next)=>{
+  
+const user = req.user._id
+
+ await new Promise((resolve,reject)=>{
+ db.query(`update users set ? where _id = '${user}'`,req.body,(err,data)=>{
+    if(err) reject(err)
+   resolve(data)
+  })
+})
+const updatedUser = await new Promise((resolve,reject)=>{
+
+  db.query(`select * from users users where _id = '${user}'`,(err,data)=>{
+     if(err) reject(err)
+    resolve(data)
+   })
+ }) 
+ await res.status(200).render('account',{
+  title:"your account",
+  user:updatedUser[0]
+})
+}
+
