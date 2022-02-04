@@ -14,7 +14,7 @@ block content
               span= tour.name
 
           .card__details
-            h4.card__sub-heading #{tour.difficulty} #{tour.duration}-day tour
+            h4.card__sub-heading #{tour.difficulty} #{tour.duration}-투어기간
             p.card__text= tour.summary
             .card__data
               svg.card__icon
@@ -27,17 +27,17 @@ block content
             .card__data
               svg.card__icon
                 use(xlink:href='/img/icons.svg#icon-flag')
-              span #{tour.location.split(',').length} stops
+              span #{tour.location.split(',').length} 방문
             .card__data
               svg.card__icon
                 use(xlink:href='/img/icons.svg#icon-user')
-              span #{tour.maxGroupSize} people
+              span #{tour.maxGroupSize} 사람
 
           .card__footer
             p
               span.card__footer-value= tour.price
-              span.card__footer-text per person
+              span.card__footer-text 사람당
             p.card__ratings
               span.card__footer-value= tour.ratingsAverage
-              span.card__footer-text rating (#{tour.ratingsQuantity})
-            a.btn.btn--green.btn--small(href=`/tours/${tour.name.replace(/ /g,'-')}`) Details 
+              span.card__footer-text 별점 (#{tour.ratingsQuantity})
+            a.btn.btn--green.btn--small(href=`/tours/${tour.name.replace(/ /g,'-')}`) 세부사항
