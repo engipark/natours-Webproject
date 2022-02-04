@@ -8,7 +8,7 @@ const dotenv = require('dotenv');
 dotenv.config({ path: `${__dirname}/../config.env` });
 
 const db = mysql.createConnection({
-  host: 'fdsfdsf',
+  host: '',
   user: 'root',
   password: '',
   database: 'NATOURS',
