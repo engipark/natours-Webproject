@@ -10,7 +10,7 @@ dotenv.config({ path: `${__dirname}/../config.env` });
 const db = mysql.createConnection({
   host: 'fdsfdsf',
   user: 'root',
-  password: '8587Rnstnrhk!',
+  password: '',
   database: 'NATOURS',
   
 });
