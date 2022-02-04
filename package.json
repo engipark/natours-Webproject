@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "debug": "ndb server.js",
     "watch:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js",
-    "build:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js"
+    "build:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js",
+    "start": "node server.js"
   },
   "author": "Park",
   "license": "ISC",
@@ -30,5 +31,6 @@
     "parcel-bundler": "^1.12.5",
     "pug": "^3.0.2",
     "xss-clean": "^0.1.1"
-  }
+  },
+  "node": ">=10.0.0"
 }
