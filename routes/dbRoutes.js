@@ -8,10 +8,10 @@ const dotenv = require('dotenv');
 dotenv.config({ path: `${__dirname}/../config.env` });
 
 const db = mysql.createConnection({
-  host: 'us-cdbr-east-05.cleardb.net',
-  user: 'beb273d2c5825d',
-  password: '1db2fbce',
-  database: 'heroku_fe0940fd07c984c',
+  host: "us-cdbr-east-05.cleardb.net",
+  user: "beb273d2c5825d",
+  password: "1db2fbce",
+  database: "heroku_fe0940fd07c984c",
   
 });
 
