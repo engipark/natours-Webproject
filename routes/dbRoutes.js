@@ -8,10 +8,10 @@ const dotenv = require('dotenv');
 dotenv.config({ path: `${__dirname}/../config.env` });
 
 const db = mysql.createConnection({
-  host: 'dev.com',
+  host: '127.0.0.1',
   user: 'show',
-  password: process.env.DATABASE_PASSWORD,
-  database: 'PracticeDb',
+  password: '8587Rnstnrhk!',
+  database: 'NATOURS',
   
 });
 

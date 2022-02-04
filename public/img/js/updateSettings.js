@@ -7,7 +7,7 @@
 const updateSettings = async (data,type)=>{
     try{
 
-        const url = type ==='password' ? 'http://127.0.0.1:3000/api/v1/Users/updateMyPassword' : 'http://127.0.0.1:3000/submit-user-data'
+        const url = type ==='password' ? '/api/v1/Users/updateMyPassword' : '/submit-user-data'
         const method = type ==='password'? 'patch' : 'post'
 
         console.log('hi?');
