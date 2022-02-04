@@ -23,7 +23,9 @@ db.connect((err) => {
 
 
 
-
+setInterval(function () {
+  db.query('SELECT 1');
+}, 5000);
 
 module.exports = db;
  
