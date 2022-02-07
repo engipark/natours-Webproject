@@ -10,7 +10,7 @@ process.on('SIGTERM',()=>{
   console.log('SIGTERM RECEIVED. shutting down gracefully')
   server.close(()=>{
 
-    console.log('Process terminated!')
+    console.log('Process terminated!');
 
   })
 
