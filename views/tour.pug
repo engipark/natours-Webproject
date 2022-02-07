@@ -35,32 +35,33 @@ block content
           .overview-box__detail
             svg.overview-box__icon
               use(xlink:href='/img/icons.svg#icon-calendar')
-            span.overview-box__label Next date
+            span.overview-box__label 다음날짜
             span.overview-box__text= tour[0].startDate1.toLocaleString('en-us',{month:'long',year:'numeric'})
           .overview-box__detail
             svg.overview-box__icon
               use(xlink:href='/img/icons.svg#icon-trending-up')
-            span.overview-box__label Difficulty
+            span.overview-box__label 난이도
             span.overview-box__text= tour[0].difficulty
           .overview-box__detail
             svg.overview-box__icon
               use(xlink:href='/img/icons.svg#icon-user')
-            span.overview-box__label Participants
-            span.overview-box__text #{tour[0].maxGroupSize} people
+            span.overview-box__label 참가자
+            span.overview-box__text #{tour[0].maxGroupSize} 명
           .overview-box__detail
             svg.overview-box__icon
               use(xlink:href='/img/icons.svg#icon-star')
-            span.overview-box__label Rating
+            span.overview-box__label 평점
             span.overview-box__text #{tour[0].ratingsAverage} / 5
 
         .overview-box__group
-          h2.heading-secondary.ma-bt-lg Your tour guides
+          h2.heading-secondary.ma-bt-lg 너의 투어가이드
 
-          each guide in tour[0].guide.split(',')
+          each k in tour[0].guide.split(',')
             .overview-box__detail
-              img.overview-box__img(src=`/img/users/${(users.filter((value)=> value['_id'] == guide))[0].photo}`, alt='Lead guide')
-              span.overview-box__label= (users.filter((value)=> value['_id'] == guide))[0].role
-              span.overview-box__text= (users.filter((value)=> value['_id'] == guide))[0].name
+              
+              img.overview-box__img(src=`/img/users/${users.filter((value)=> value['_id'] == tour[0].guide.split(',')[0])[0].photo}`, alt='Lead guide')
+              span.overview-box__label= users.filter((value)=> value['_id'] == tour[0].guide.split(',')[0])[0].role
+              span.overview-box__text= users.filter((value)=> value['_id'] == tour[0].guide.split(',')[0])[0].name
           
 
     .description-box
@@ -110,7 +111,7 @@ block content
       img.cta__img.cta__img--1(src=`/img/tours/${tour[0].image2}`, alt='')
       img.cta__img.cta__img--2(src=`/img/tours/${tour[0].image3}`, alt='')
       .cta__content
-        h2.heading-secondary What are you waiting for?
+        h2.heading-secondary 왜 망설이십니까?
         p.cta__text= `${tour[0].duration} days. 1 adventure. Infinite memories. Make it yours today!`
-        button.btn.btn--green.span-all-rows Book tour now!
+        button.btn.btn--green.span-all-rows 지금 예약하세요!
     

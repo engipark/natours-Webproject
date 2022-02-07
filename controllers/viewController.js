@@ -53,6 +53,7 @@ exports.getTour = async (req,res)=>{
     })
   })
 
+
   const reviews = await new Promise((resolve,reject)=>{
     db.query('select * from reviews',(err,data)=>{
       if(err) reject(err);
@@ -62,7 +63,10 @@ exports.getTour = async (req,res)=>{
 
   
   
-  
+    // console.log(tour)
+    // console.log(users)
+    console.log(tour[0].guide.split(',')[0])
+    // console.log(users.filter((value)=> value['_id'] == tour[0].guide.split(',')[0])[0].photo)
 
     res.status(200).render('tour',{
       title: `${tour[0].name}`,
