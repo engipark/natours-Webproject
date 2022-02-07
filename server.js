@@ -8,7 +8,7 @@ app.listen(process.env.PORT || 5000, () => {
 process.on('SIGTERM',()=>{
 
   console.log('SIGTERM RECEIVED. shutting down gracefully')
-  Server.close(()=>{
+  server.close(()=>{
 
     console.log('Process terminated!')
 
