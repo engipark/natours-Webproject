@@ -10,7 +10,7 @@ const globalErrorHandler = require('./controllers/errorController.js')
 const rateLimit = require('express-rate-limit')
 const helmet = require('helmet');
 const xss = require('xss-clean')
-
+const cors = require('cors')
 
 
 // start express application 
