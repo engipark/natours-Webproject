@@ -70,7 +70,7 @@ app.use(express.static(path.join(__dirname,'public')));
 // 1. middleware
 app.use(cors());
  
-app.options('*',cors()),
+app.options('*',cors())
 
 // access - control -allow -origin
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
