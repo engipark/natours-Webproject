@@ -62,12 +62,17 @@ app.use(
     },
   })
 );
-app.use(compression())
+app.use(compression('*'),cors())
 app.set('view engine','pug');
 app.set('views',path.join(__dirname,'views'))
 app.use(express.static(path.join(__dirname,'public')));
 
 // 1. middleware
+app.use(cors());
+ 
+app.options('*',cors()),
+
+// access - control -allow -origin
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 const limiter = rateLimit({
 max:100,
@@ -96,7 +101,7 @@ app.use('/api',limiter)
 
 // 3. routes 
 app.use('/', viewRouter);
-app.use('/api/v1/tours', tourRouter);
+app.use('/api/v1/tours', cors(),tourRouter);
 app.use('/api/v1/Users', userRouter);
 app.all('*',(req,res,next)=>{
   next(new AppError(`Can't find ${req.originalUrl} on this server!`,404));
