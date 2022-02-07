@@ -15,6 +15,8 @@ const xss = require('xss-clean')
 
 // start express application 
 const app = express();
+
+app.enable('trust proxy')
 const tourRouter = require('./routes/tourRoutes.js');
 const userRouter = require('./routes/userRoutes.js');
 const viewRouter = require('./routes/viewRoutes.js');

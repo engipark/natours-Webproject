@@ -12,9 +12,7 @@ const signToken = async (id)=>{
 
 
 })}
-const cookieOptions = {
-    expires:new Date(Date.now()+process.env.JWT_COOKIE_EXPIRES_IN*24 * 60 * 60 * 1000),secure:false,httpOnly:true
-}
+
 const crypto = require ('crypto')
 const errorHandler = require('./errorController.js');
 const { readSync } = require('fs');
@@ -39,22 +37,25 @@ const changedPasswordAfter = (JWTimestamp,passwordChangedAt)=>{
 
     }
 
-    return false
+    return false 
 }
 
-const createSendToken = async (user,statusCode,res)=>{
+const createSendToken = async (user,statusCode,res,req)=>{
     const token = await signToken(user._id);
-    res.cookie('jwt',token,cookieOptions)
+    res.cookie('jwt',token,cookieOptions,{
+        expires:new Date(Date.now()+process.env.JWT_COOKIE_EXPIRES_IN*24 * 60 * 60 * 1000),secure:(req.secure || req.headers('x-forwarded-proto') === 'https') ,httpOnly:true
+    })
     user.password = undefined
     user.passwordChangedAt= undefined,
     user.createPasswordResetToken = undefined,
     user.createPasswordResetToken = undefined
     res.status(statusCode).json({
-        status:'success',
+        status:'suc cess',
         token:token,
         data:{
             user
         }
+
     })
 }                                                  
 
@@ -96,7 +97,7 @@ exports.signup = async (req,res,next)=>{
   })
    }) 
 
-   createSendToken(req.body,200,res)
+   createSendToken(req.body,200,res,req)
    
 } 
 exports.login = async (req,res,next)=>{
@@ -128,7 +129,7 @@ if(!email || !password ){
 
    }  
  // 3) if everything ok , send token to client 
- createSendToken(user[0],200,res)
+ createSendToken(user[0],200,res,req)
 
 
    
@@ -290,7 +291,7 @@ exports.resetPassword = async (req,res,next)=>{
     
   //4 log the user in send jwt 
   
-  createSendToken(user[0],200,res)
+  createSendToken(user[0],200,res,req)
 
 
 }
@@ -331,7 +332,7 @@ exports.updatePassword = async (req,res,next)=>{
 
     //4) log user in, send jwt 
 
-    createSendToken(req.user,200,res)
+    createSendToken(req.user,200,res,req)
 
 }
 
